@@ -19,7 +19,7 @@ public class PaddleAi : MonoBehaviour
         Vector2 target = bola.position;
         Vector2 current = transform.position;
 
-        if (bolaRb != null && bolaRb.linearVelocity.x < 0) return;
+        if (bolaRb == null ) return;
         float gerakY = 0f;
         float gerakX = 0f;
 
@@ -28,7 +28,11 @@ public class PaddleAi : MonoBehaviour
             gerakY = Mathf.Sign(target.y - current.y) * kecepatan * Time.deltaTime;
         }
 
-        if (Mathf.Abs(target.x - current.x) > 0.1f)
+        if (Mathf.Abs(target.x - current.x) > 0.1f && bolaRb.linearVelocity.x < 0)
+        {
+            gerakX = -Mathf.Sign(target.x - current.x) * kecepatan * Time.deltaTime;
+        }
+        else
         {
             gerakX = Mathf.Sign(target.x - current.x) * kecepatan * Time.deltaTime;
         }
